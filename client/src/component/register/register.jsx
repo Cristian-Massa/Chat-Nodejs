@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 const Register = () =>{
     const [user, setUser] = useState({
@@ -7,7 +7,7 @@ const Register = () =>{
         confirmpassword: '',
         email: ''
     })
-
+    const [response , setResponse] = useState('')
     const formHandler = (e) =>{
         const name = e.currentTarget.name
         const value = e.currentTarget.value
@@ -18,10 +18,22 @@ const Register = () =>{
         })
     };
     
-    useEffect(()=>{
-        console.log(user);
-    }, [user])
-
+    const formSubmit = () => {
+        const error = validator(user)
+        if(!error){
+            const userReg = {
+                user: user.user,
+                password: user.password,
+                email: user.email
+            }
+            axios.post('/register', userReg)
+                .then(res => res.data)
+                .then(data => {
+                    setResponse(data)
+                })
+                .catch((err) => { setResponse(err)})
+        }
+    };
     return(
         <div>
             <form>
@@ -37,7 +49,7 @@ const Register = () =>{
                 <label>Repetir contrasena:</label>
                 <input type="password" placeholder="dsadasd" name="confirmPassword" onChange={formHandler}/>
             </form>
-            <button>Registrar</button>
+            <button onClick={formSubmit}>Registrar</button>
             <Link to='/login'>Ya estas registrado? Haz click</Link>
         </div>
     )
