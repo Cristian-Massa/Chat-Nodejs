@@ -3,7 +3,7 @@ const initialState = {
     contacts: {
     },
     user:{
-
+        userName: "" ,
     },
     errors: []
 }

@@ -6,12 +6,10 @@ import RegisterPage from './layout/register/page'
 import NotFound from './layout/404Error/404'
 import axios from 'axios'
 function App() {
-
   axios.create({
     baseURL: 'http:localhost:3001'
   })
-  
-  return (
+  return ( 
     <div>
       <Routes>
         <Route index path='/' element={<Home />} />
